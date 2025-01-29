@@ -21,8 +21,8 @@ An interactive chat application that supports:
    • Progressively display partial text so you can see the model's response in real time.
 
 3. MathJax Support  
-   • Inline LaTeX like $x^2+y^2$ is automatically rendered.  
-   • Display math can also be used; e.g., $$\frac{d}{dx} f(x)$$.  
+   • Inline LaTeX like '$x^2+y^2$' is automatically rendered.  
+   • Display math can also be used; e.g., '$$\frac{d}{dx} f(x)$$'.  
    • No browser errors if input contains standard LaTeX syntax.
 
 4. Conversation Management  
@@ -125,7 +125,7 @@ An interactive chat application that supports:
    • Confirm your token is valid.
 
 3. LaTeX not rendering properly  
-   • Make sure your equation is enclosed in $...$ or $$...$$.  
+   • Make sure your equation is enclosed in '$...$' or '$$...$$'.  
    • Check the console for MathJax parse warnings.
 
 ---

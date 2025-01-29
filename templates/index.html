@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>R1 Chat (Streaming + MathJax, Multi-Conversations)</title>
+  <!-- MathJax Config -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)'], ['$$', '$$'], ['\\[', '\\]']],
+        displayMath: [],
+        processEscapes: true
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+          id="MathJax-script" async></script>
+
+  <!-- Link to our external CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div id="mainContainer">
+  <button id="toggleSidebarBtn" style="margin: 1em;">Hide Sidebar</button>
+  <div id="sidebar">
+    <h3>Conversations</h3>
+    <div id="conversationList"></div>
+    <button id="newConversationBtn">New Conversation</button>
+  </div>
+
+  <div id="conversationContainer" style="flex: 1; display: flex; flex-direction: column; position: relative;">
+    <h1>R1 Chat</h1>
+    <div id="conversationsArea" style="flex: 1; position: relative;"></div>
+
+    <div id="inputArea">
+      <form id="chatForm" onsubmit="return false;">
+        <textarea name="user_input" rows="3" cols="60" id="userInput"
+                  placeholder="Ask a question..."></textarea><br>
+
+        <label for="tempRange">Temperature:</label>
+        <input type="range" id="tempRange" min="0" max="1" step="0.01" value="0.1">
+        <span id="tempValue">0.1</span>
+        <br><br>
+        <label for="topPRange">Top-p:</label>
+        <input type="range" id="topPRange" min="0" max="1" step="0.01" value="0.9">
+        <span id="topPValue">0.9</span>
+        <br><br>
+        <label for="maxTokensBox">Max Tokens:</label>
+        <input type="number" id="maxTokensBox" min="1" max="2000" value="100">
+        <br><br>
+
+        <button type="button" id="sendBtn">Send</button>
+        <button type="button" id="stopBtn">Stop</button>
+        <button type="button" id="debugBtn">Debug Print</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Link to external JavaScript (defer so it runs after HTML loads) -->
+<script src="{{ url_for('static', filename='main.js') }}" defer></script>
+
+</body>
+</html> 

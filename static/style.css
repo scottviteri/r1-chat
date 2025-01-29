@@ -1,0 +1,131 @@
+/* Dark background + light text */
+html, body {
+  margin: 0; 
+  padding: 0; 
+  height: 100%;
+  background-color: #222;
+  color: #eee;
+  font-family: sans-serif;
+}
+
+#mainContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+/* Side panel styling */
+#sidebar {
+  width: 300px;
+  background: #333;
+  border-right: 1px solid #555;
+  padding: 1em;
+  display: block;
+  color: #eee;
+}
+
+#toggleSidebarBtn {
+  width: 70px; /* narrower button */
+  margin: 1em;
+  background: #444;
+  color: #eee;
+  border: 1px solid #555;
+  padding: 0.5em 1em; /* nicer appearance */
+  cursor: pointer; /* show hand cursor on hover */
+}
+
+#toggleSidebarBtn:hover {
+  background: #555;
+}
+
+#sidebar.hidden {
+  display: none;
+}
+
+#conversationContainer {
+  display: flex;
+  margin:1em;
+  flex-direction: column;
+  flex: 1;
+}
+
+#conversationsArea {
+  flex: 1;
+  position: relative;
+}
+
+/* Example styling for conversation divs if you want */
+#conversation {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #666;
+  margin: 1em;
+  padding: 1em;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  background-color: #222;
+  color: #eee;
+}
+
+#inputArea {
+  margin: 0 1em 1em 1em;
+  color: #eee;
+}
+
+button, input, textarea {
+  background: #444;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+button:hover, input:hover, textarea:hover {
+  background: #555;
+}
+
+/* Existing styles for pairDiv created in main.js */
+
+/* Make sure pairDiv is positioned so we can place absolute elements */
+.pairDiv {
+  position: relative;
+  padding: 8px;
+  border: 1px solid #444;
+  margin: 8px 0;
+}
+
+/* Container for the trash and copy buttons */
+.pairActions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+/* Make the trash icon a bit larger */
+.trashBtn {
+  font-size: 1.2em; /* slightly larger */
+  margin-left: 8px;
+}
+
+/* Optional: style the copy button similarly */
+.copyBtn {
+  font-size: 1.2em;
+  margin-left: 8px;
+}
+
+#sidebar .conversationRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px; /* some spacing between rows */
+}
+
+.trashConvBtn {
+  background-color: #444;
+  border: 1px solid #555;
+  color: #eee;
+  cursor: pointer;
+}
+
+.trashConvBtn:hover {
+  background-color: #555;
+} 

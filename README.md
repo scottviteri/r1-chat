@@ -1,5 +1,10 @@
 # R1 Chat
 
+<video width="600" controls>
+  <source src="https://github.com/scottviteri/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 An interactive chat application that supports:  
 • Multiple parallel conversations.  
 • Live streaming of partial responses (Server-Sent Events).  

@@ -1,7 +1,7 @@
 # R1 Chat
 
 <video width="600" controls>
-  <source src="https://github.com/scottviteri/demo.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/scottviteri/r1-chat/main/demo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 

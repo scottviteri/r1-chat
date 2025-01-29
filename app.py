@@ -16,7 +16,7 @@ def load_hyperbolic_api_key():
     """
     Loads the Hyperbolic.ai API key by checking an environment variable
     named 'HYPERBOLIC_API_KEY' first. If that's not found, tries
-    reading from a local file named '.hyperbolic_token'.
+    reading from a local file named '.hyperbolic_api_key'.
     """
     # 1) Check environment variable
     env_key = os.environ.get("HYPERBOLIC_API_KEY")
@@ -24,7 +24,7 @@ def load_hyperbolic_api_key():
         print("Using Hyperbolic API key from environment variable.")
         return env_key
 
-    # 2) Fall back to local file, e.g. ".hyperbolic_token"
+    # 2) Fall back to local file, e.g. ".hyperbolic_api_key"
     token_file = Path(".hyperbolic_api_key")
     if token_file.is_file():
         try:
@@ -39,7 +39,7 @@ def load_hyperbolic_api_key():
     # 3) If neither is found, raise an error
     raise RuntimeError(
         "No Hyperbolic API key found. Please set HYPERBOLIC_API_KEY "
-        "environment variable or create a .hyperbolic_token file."
+        "environment variable or create a .hyperbolic_api_key file."
     )
 
 # Load the key just once at startup

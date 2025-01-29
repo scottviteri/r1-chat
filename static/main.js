@@ -22,6 +22,9 @@ const evtSources = {};
 
 let activeConversationId = null;
 
+// Add this at the top of the file with other global variables
+const conversationButtons = {};  // Store conversation buttons by ID
+
 // Setup UI
 tempRange.addEventListener('input', () => {
   tempValueSpan.textContent = tempRange.value;
@@ -49,15 +52,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // Fetch + display conversation list
 function reloadConversationList() {
-  fetch('/list_conversations')
+  return fetch('/list_conversations')  // Return the promise chain
     .then(r => r.json())
     .then(convoIds => {
       conversationListEl.innerHTML = "";
+      // Clear the buttons object when reloading
+      Object.keys(conversationButtons).forEach(key => delete conversationButtons[key]);
 
       convoIds.forEach(cid => {
         // Create a row container to hold the conversation name + delete button
         const rowDiv = document.createElement('div');
-        rowDiv.classList.add('conversationRow'); // optional, for styling
+        rowDiv.classList.add('conversationRow');
 
         // Button for selecting the conversation
         const convoBtn = document.createElement('button');
@@ -65,6 +70,9 @@ function reloadConversationList() {
         convoBtn.addEventListener('click', () => {
           selectConversation(cid);
         });
+        // Store the button reference
+        conversationButtons[cid] = convoBtn;
+        
         rowDiv.appendChild(convoBtn);
 
         // Trash icon button for deleting the conversation
@@ -73,13 +81,11 @@ function reloadConversationList() {
         deleteConvBtn.classList.add('trashConvBtn');
         deleteConvBtn.style.marginLeft = "8px";
         deleteConvBtn.addEventListener('click', (evt) => {
-          // Prevent the click from also selecting the conversation
           evt.stopPropagation();
           deleteConversation(cid);
         });
         rowDiv.appendChild(deleteConvBtn);
 
-        // Add your new row to the sidebar
         conversationListEl.appendChild(rowDiv);
       });
     })
@@ -91,9 +97,18 @@ newConversationBtn.addEventListener('click', () => {
   fetch('/new_conversation', {method: 'POST'})
     .then(r => r.json())
     .then(data => {
-      reloadConversationList().then(() => {
-        selectConversation(data.conversation_id);
-      });
+      // First reload the conversation list
+      reloadConversationList()
+        .then(() => {
+          // Then automatically select the new conversation
+          selectConversation(data.conversation_id);
+          // Update active conversation ID
+          activeConversationId = data.conversation_id;
+          // Optional: Clear the input area for the new conversation
+          userInputEl.value = '';
+          // Optional: Focus the input box
+          userInputEl.focus();
+        });
     });
 });
 

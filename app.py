@@ -154,7 +154,7 @@ def stream():
     }
     payload = {
         "messages": all_conversations.get(cid, []),
-        "model": "deepseek-ai/DeepSeek-R1-Zero",
+        "model": "deepseek-ai/DeepSeek-R1",
         "max_tokens": max_tokens,
         "temperature": temperature,
         "top_p": top_p,
@@ -163,13 +163,16 @@ def stream():
 
     def event_stream():
         try:
-            # Insert an empty assistant message so we can build it chunk-by-chunk
-            if cid in all_conversations:
-                all_conversations[cid].append({"role": "assistant", "content": ""})
-                save_all_conversations(cid)
+            # Debug print for the POST request
+            print("POST Request Details:")
+            print(f"URL: {API_URL}")
+            print(f"Headers: {headers}")
+            print(f"Payload: {json.dumps(payload, indent=2)}")
 
             with requests.post(API_URL, headers=headers, json=payload, stream=True) as r:
                 r.raise_for_status()
+
+                first_chunk = True  # Flag to track the first chunk
 
                 for chunk in r.iter_lines(decode_unicode=True):
                     if stop_requested.get(s_id, False) is True:
@@ -188,6 +191,11 @@ def stream():
                             parsed_obj = json.loads(json_str)
                             delta = parsed_obj.get("choices", [{}])[0].get("delta", {})
                             text_piece = delta.get("content", "")
+
+                            # Append the assistant message only after receiving the first chunk
+                            if first_chunk and cid in all_conversations:
+                                all_conversations[cid].append({"role": "assistant", "content": ""})
+                                first_chunk = False
 
                             # Append chunk to the last assistant message
                             if cid in all_conversations and all_conversations[cid]:
